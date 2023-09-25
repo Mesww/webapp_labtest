@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz1</title>
+    <link rel="stylesheet" href="/public/css/bootstrap.min.css">
+    <script src="/public/js/bootstrap.min.js"></script>
+    <style>
+        #banner{
+            flex: 3;
+            background-color: black;
+            color: white;
+        }
+        #details{
+            flex: 7;
+        }
+        #output{
+            color: yellow
+        }
+    </style>
+</head>
+
+<body>    
+    <div class="container row">
+        <!--! left banner -->
+        <div class="container text-center " id="banner">
+            <h1>Print Shop</h1>
+            <h4 id="output"></h4>
+        </div>
+
+        <!--! Details -->
+        <div class="container border " id="details">
+            <h3>Details</h3>
+            <div class="mb-3">
+              <input type="number"
+                class="form-control" name="" id="input_price" aria-describedby="helpId" placeholder="">
+            </div>
+            <div class="conatiner mb-2">
+                    <div class="form-check-inline">
+                      <input class="form-check-input radio_price" type="radio" name="radio_price" id="BW" value="BW">
+                      <label class="form-check-label" for="">
+                        Black & White (2 baht/page)
+                      </label>
+                    </div>
+                    <div class="form-check-inline">
+                      <input class="form-check-input radio_price" type="radio" name="radio_price" id="C" value="C" checked>
+                      <label class="form-check-label" for="">
+                        Color (5 baht/page)
+                      </label>
+                    </div>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="" id="checkbox_price">
+              <label class="form-check-label" for="checkbox_price">
+                Two sides (20% reduction)
+              </label>
+            </div>
+            <button type="button" class="btn btn-primary mt-2 mb-2">Print Order</button>
+        </div>
+
+    </div>
+    
+    <script>
+        document.querySelector('button').onclick = function (){
+            const input_price = document.querySelector('#input_price').value;
+            let radio_price = '';
+            let reduce_price = 0; 
+            let price = 0;
+            if(document.querySelector('#BW').checked){
+                radio_price = 'BW';
+            }else if(document.querySelector('#C').checked){
+                radio_price = 'C';
+            }
+            console.log(input_price + radio_price);
+            let output = '' ;
+            if (input_price.trim() == '') {
+                alert('Please input number of page')
+            } else {
+                let price_ = parseInt(input_price)
+                if (document.querySelector("#checkbox_price").checked) {
+                    if (radio_price == "BW") {
+                        reduce_price =  Math.floor((price_ *2)*0.2);
+                        price = price_ *2
+                        console.log(price);
+                        console.log(reduce_price);
+                    } else {
+                        reduce_price = Math.floor( (price_ *5)*0.2);
+                        price = price_  *5
+                        console.log(price);
+                        console.log(reduce_price);
+                    }
+                    price = price - reduce_price;
+                    console.log(output);
+                } else {
+                    if (radio_price == "BW") {
+                        // reduce_price =  Math.floor((input_price*2));
+                        price = price_  *2
+                        console.log(price);
+                        console.log(reduce_price);
+                    } else {
+                        // reduce_price = Math.floor( (input_price*5));
+                        price = price_ *5
+                    }   
+                }
+                output = `${price}`;
+                document.querySelector('#output').innerHTML = output ;
+            }
+        }        
+    </script>
+</body>
+</html>
